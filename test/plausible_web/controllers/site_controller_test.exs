@@ -4,6 +4,7 @@ defmodule PlausibleWeb.SiteControllerTest do
   use Bamboo.Test
   use Oban.Testing, repo: Plausible.Repo
   import Plausible.TestUtils
+  import Mox
 
   describe "GET /sites/new" do
     setup [:create_user, :log_in]
@@ -723,25 +724,13 @@ defmodule PlausibleWeb.SiteControllerTest do
   end
 
   describe "GET /:website/import/google-analytics/view-id" do
-    setup [:create_user, :log_in, :create_new_site]
+    setup [:create_user, :log_in, :create_new_site, :verify_on_exit!]
 
     test "lists Google Analytics views", %{conn: conn, site: site} do
-      bypass = Bypass.open()
-
-      Bypass.expect_once(
-        bypass,
-        "GET",
-        "/analytics/v3/management/accounts/~all/webproperties/~all/profiles",
-        fn conn ->
-          response_body = File.read!("fixture/ga_list_views.json")
-          Plug.Conn.resp(conn, 200, response_body)
-        end
-      )
-
-      :plausible
-      |> Application.get_env(:google)
-      |> Keyword.put(:api_url, "http://0.0.0.0:#{bypass.port}")
-      |> then(&Application.put_env(:plausible, :google, &1))
+      expect(Plausible.Google.HTTPMock, :list_views_for_user, fn "token" ->
+        body = File.read!("fixture/ga_list_views.json")
+        {:ok, Jason.decode!(body)}
+      end)
 
       response =
         conn

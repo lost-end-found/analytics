@@ -20,7 +20,8 @@ config :plausible,
 
 config :plausible, :google,
   client_id: "fake_client_id",
-  client_secret: "fake_client_secret"
+  client_secret: "fake_client_secret",
+  http_module: Plausible.Google.HTTPMock
 
 config :bamboo, :refute_timeout, 10
 

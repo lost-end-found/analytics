@@ -23,6 +23,8 @@ config :plausible,
   paddle_api: Plausible.Billing.PaddleApi,
   google_api: Plausible.Google.Api
 
+config :plausible, :google, http_module: Plausible.Google.HTTP
+
 config :plausible,
   # 30 minutes
   session_timeout: 1000 * 60 * 30,

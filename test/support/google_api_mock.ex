@@ -1,3 +1,5 @@
+Mox.defmock(Plausible.Google.HTTPMock, for: Plausible.Google.HTTP.Interface)
+
 defmodule Plausible.Google.Api.Mock do
   def fetch_stats(_auth, _query, _limit) do
     {:ok,

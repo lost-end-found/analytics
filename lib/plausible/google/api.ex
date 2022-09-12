@@ -61,7 +61,7 @@ defmodule Plausible.Google.Api do
   Lists Google Analytics views grouped by hostname.
   """
   def list_views(access_token) do
-    case HTTP.list_views_for_user(access_token) do
+    case http_module().list_views_for_user(access_token) do
       {:ok, %{"items" => views}} ->
         views = Enum.group_by(views, &view_hostname/1, &view_names/1)
         {:ok, views}
@@ -198,6 +198,12 @@ defmodule Plausible.Google.Api do
 
   defp client_id() do
     Keyword.fetch!(Application.get_env(:plausible, :google), :client_id)
+  end
+
+  defp http_module() do
+    :plausible
+    |> Application.fetch_env!(:google)
+    |> Keyword.fetch!(:http_module)
   end
 
   defp redirect_uri() do
