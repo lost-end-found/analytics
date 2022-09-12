@@ -30,7 +30,10 @@ defmodule Plausible.Google.HTTP do
     url = "#{reporting_api_url()}/v4/reports:batchGet"
     headers = [{"Authorization", "Bearer #{report_request.access_token}"}]
     response = HTTPClient.post(url, headers, params)
+    parse_report_response(response)
+  end
 
+  def parse_report_response(response) do
     with {:ok, %{status: 200, body: body}} <- response,
          {:ok, report} <- parse_report_from_response(body),
          token <- Map.get(report, "nextPageToken"),

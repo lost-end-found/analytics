@@ -3,24 +3,31 @@ defmodule Plausible.Google.ApiTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Finch
   alias Plausible.Google.Api
   import Plausible.TestUtils
-  import Double
+  import Mox
+  # import Double
 
   setup [:create_user, :create_new_site]
 
   describe "fetch_and_persist/4" do
-    @ok_response File.read!("fixture/ga_batch_report.json")
-
     setup do
       {:ok, pid} = Plausible.Google.Buffer.start_link()
       {:ok, buffer: pid}
     end
 
     test "will fetch and persist import data from Google Analytics", %{site: site, buffer: buffer} do
-      finch_double =
-        Finch
-        |> stub(:request, fn _, _ ->
-          {:ok, %Finch.Response{status: 200, body: @ok_response}}
-        end)
+      expect(Plausible.Google.HTTPMock, :get_report, fn _ ->
+        # the separation between HTTP/Api modules is currently unclear,
+        # ideally the mock here would stub a raw HTTP response; for this to
+        # happen all the parsing should happen on the Api module end.
+        # Out of scope for now, so this changeset does not grow too big.
+        Plausible.Google.HTTP.parse_report_response(
+          {:ok,
+           %Finch.Response{
+             status: 200,
+             body: File.read!("fixture/ga_batch_report.json")
+           }}
+        )
+      end)
 
       request = %Plausible.Google.ReportRequest{
         dataset: "imported_exit_pages",
@@ -34,7 +41,6 @@ defmodule Plausible.Google.ApiTest do
       }
 
       Api.fetch_and_persist(site, request,
-        http_client: finch_double,
         sleep_time: 0,
         buffer: buffer
       )
@@ -52,13 +58,9 @@ defmodule Plausible.Google.ApiTest do
       site: site,
       buffer: buffer
     } do
-      finch_double =
-        Finch
-        |> stub(:request, fn _, _ -> {:error, :timeout} end)
-        |> stub(:request, fn _, _ -> {:error, :nx_domain} end)
-        |> stub(:request, fn _, _ -> {:error, :closed} end)
-        |> stub(:request, fn _, _ -> {:ok, %Finch.Response{status: 503}} end)
-        |> stub(:request, fn _, _ -> {:ok, %Finch.Response{status: 502}} end)
+      expect(Plausible.Google.HTTPMock, :get_report, 5, fn _ ->
+        {:error, :any}
+      end)
 
       request = %Plausible.Google.ReportRequest{
         view_id: "123",
@@ -72,26 +74,26 @@ defmodule Plausible.Google.ApiTest do
 
       assert_raise RuntimeError, "Google API request failed too many times", fn ->
         Api.fetch_and_persist(site, request,
-          http_client: finch_double,
           sleep_time: 0,
           buffer: buffer
         )
       end
-
-      assert_receive({Finch, :request, [_, _]})
-      assert_receive({Finch, :request, [_, _]})
-      assert_receive({Finch, :request, [_, _]})
-      assert_receive({Finch, :request, [_, _]})
-      assert_receive({Finch, :request, [_, _]})
     end
 
     test "does not fail when report does not have rows key", %{site: site, buffer: buffer} do
-      finch_double =
-        Finch
-        |> stub(:request, fn _, _ ->
+      expect(Plausible.Google.HTTPMock, :get_report, fn _ ->
+        # the separation between HTTP/Api modules is currently unclear,
+        # ideally the mock here would stub a raw HTTP response; for this to
+        # happen all the parsing should happen on the Api module end.
+        # Out of scope for now, so this changeset does not grow too big.
+        Plausible.Google.HTTP.parse_report_response(
           {:ok,
-           %Finch.Response{status: 200, body: File.read!("fixture/ga_report_empty_rows.json")}}
-        end)
+           %Finch.Response{
+             status: 200,
+             body: File.read!("fixture/ga_report_empty_rows.json")
+           }}
+        )
+      end)
 
       request = %Plausible.Google.ReportRequest{
         dataset: "imported_exit_pages",
@@ -106,7 +108,6 @@ defmodule Plausible.Google.ApiTest do
 
       assert :ok ==
                Api.fetch_and_persist(site, request,
-                 http_client: finch_double,
                  sleep_time: 0,
                  buffer: buffer
                )
