@@ -2,39 +2,34 @@ defmodule Plausible.Google.HTTP do
   require Logger
   alias Plausible.HTTPClient
 
-  @spec get_report(module(), Plausible.Google.ReportRequest.t()) ::
-          {:ok, {[map()], String.t() | nil}} | {:error, any()}
-  def get_report(http_client, %Plausible.Google.ReportRequest{} = report_request) do
-    params =
-      Jason.encode!(%{
-        reportRequests: [
-          %{
-            viewId: report_request.view_id,
-            dateRanges: [
-              %{
-                startDate: report_request.date_range.first,
-                endDate: report_request.date_range.last
-              }
-            ],
-            dimensions: Enum.map(report_request.dimensions, &%{name: &1, histogramBuckets: []}),
-            metrics: Enum.map(report_request.metrics, &%{expression: &1}),
-            hideTotals: true,
-            hideValueRanges: true,
-            orderBys: [%{fieldName: "ga:date", sortOrder: "DESCENDING"}],
-            pageSize: report_request.page_size,
-            pageToken: report_request.page_token
-          }
-        ]
-      })
+  @behaviour Plausible.Google.HTTP.Interface
 
-    response =
-      :post
-      |> Finch.build(
-        "#{reporting_api_url()}/v4/reports:batchGet",
-        [{"Authorization", "Bearer #{report_request.access_token}"}],
-        params
-      )
-      |> http_client.request(Plausible.Finch)
+  @impl true
+  def get_report(%Plausible.Google.ReportRequest{} = report_request) do
+    params = %{
+      reportRequests: [
+        %{
+          viewId: report_request.view_id,
+          dateRanges: [
+            %{
+              startDate: report_request.date_range.first,
+              endDate: report_request.date_range.last
+            }
+          ],
+          dimensions: Enum.map(report_request.dimensions, &%{name: &1, histogramBuckets: []}),
+          metrics: Enum.map(report_request.metrics, &%{expression: &1}),
+          hideTotals: true,
+          hideValueRanges: true,
+          orderBys: [%{fieldName: "ga:date", sortOrder: "DESCENDING"}],
+          pageSize: report_request.page_size,
+          pageToken: report_request.page_token
+        }
+      ]
+    }
+
+    url = "#{reporting_api_url()}/v4/reports:batchGet"
+    headers = [{"Authorization", "Bearer #{report_request.access_token}"}]
+    response = HTTPClient.post(url, headers, params)
 
     with {:ok, %{status: 200, body: body}} <- response,
          {:ok, report} <- parse_report_from_response(body),
@@ -44,6 +39,7 @@ defmodule Plausible.Google.HTTP do
     end
   end
 
+  @impl true
   def list_sites(access_token) do
     url = "#{api_url()}/webmasters/v3/sites"
     headers = [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{access_token}"}]
@@ -61,6 +57,7 @@ defmodule Plausible.Google.HTTP do
     end
   end
 
+  @impl true
   def fetch_access_token(code) do
     url = "#{api_url()}/oauth2/v4/token"
     headers = [{"Content-Type", "application/x-www-form-urlencoded"}]
@@ -80,6 +77,7 @@ defmodule Plausible.Google.HTTP do
     |> Jason.decode!()
   end
 
+  @impl true
   def list_views_for_user(access_token) do
     url = "#{api_url()}/analytics/v3/management/accounts/~all/webproperties/~all/profiles"
 
@@ -99,6 +97,7 @@ defmodule Plausible.Google.HTTP do
     end
   end
 
+  @impl true
   def list_stats(access_token, property, date_range, limit, page \\ nil) do
     property = URI.encode_www_form(property)
 
@@ -144,6 +143,7 @@ defmodule Plausible.Google.HTTP do
     end
   end
 
+  @impl true
   def refresh_auth_token(refresh_token) do
     url = "#{api_url()}/oauth2/v4/token"
     headers = [{"content-type", "application/x-www-form-urlencoded"}]
@@ -173,6 +173,7 @@ defmodule Plausible.Google.HTTP do
   end
 
   @earliest_valid_date "2005-01-01"
+  @impl true
   def get_analytics_start_date(view_id, access_token) do
     params = %{
       reportRequests: [
