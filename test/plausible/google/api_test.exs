@@ -4,7 +4,6 @@ defmodule Plausible.Google.ApiTest do
   alias Plausible.Google.Api
   import Plausible.TestUtils
   import Mox
-  # import Double
 
   setup [:create_user, :create_new_site]
 
