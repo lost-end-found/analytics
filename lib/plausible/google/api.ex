@@ -1,5 +1,6 @@
 defmodule Plausible.Google.Api do
   alias Plausible.Google.{ReportRequest, HTTP}
+  alias GoogleApi.AnalyticsReporting.V4.Model.GetReportsResponse
   use Timex
   require Logger
 
@@ -10,15 +11,6 @@ defmodule Plausible.Google.Api do
          )
   @import_scope URI.encode_www_form("email https://www.googleapis.com/auth/analytics.readonly")
   @verified_permission_levels ["siteOwner", "siteFullUser", "siteRestrictedUser"]
-
-  # def parse_report_response(response) do
-  # with {:ok, %{status: 200, body: body}} <- response,
-  # {:ok, report} <- parse_report_from_response(body),
-  # token <- Map.get(report, "nextPageToken"),
-  # {:ok, report} <- convert_to_maps(report) do
-  # {:ok, {report, token}}
-  # end
-  # end
 
   def authorize_url(site_id, redirect_to) do
     if Application.get_env(:plausible, :environment) == "test" do
@@ -155,7 +147,10 @@ defmodule Plausible.Google.Api do
     attempt = Keyword.get(opts, :attempt, 1)
     sleep_time = Keyword.get(opts, :sleep_time, 1000)
 
-    case http_module().get_report(report_request) do
+    report_request
+    |> http_module().get_report()
+    |> parse_report_from_response()
+    |> case do
       {:ok, {rows, next_page_token}} ->
         records = Plausible.Imported.from_google_analytics(rows, site.id, report_request.dataset)
         :ok = Plausible.Google.Buffer.insert_many(buffer_pid, report_request.dataset, records)
@@ -175,12 +170,56 @@ defmodule Plausible.Google.Api do
         Sentry.Context.set_extra_context(%{context_key => error})
 
         if attempt >= @max_attempts do
-          raise "Google API request failed too many times"
+          raise "Google API request failed too many times #{inspect(error)}"
         else
           Process.sleep(sleep_time)
           fetch_and_persist(site, report_request, Keyword.merge(opts, attempt: attempt + 1))
         end
     end
+  end
+
+  defp parse_report_from_response(response) do
+    with {:ok, %GetReportsResponse{reports: [report | _]}} <- response,
+         {:ok, rows} <- convert_to_maps(report) do
+      {:ok, {rows, report.nextPageToken}}
+    else
+      error ->
+        Logger.error(
+          "Google Analytics: Failed to find report in response. Reason: #{inspect(error)}"
+        )
+
+        Sentry.Context.set_extra_context(%{google_analytics_response: response})
+        {:error, {:invalid_response, response}}
+    end
+  end
+
+  defp convert_to_maps(%{
+         data: %{} = data,
+         columnHeader: %{
+           dimensions: dimension_headers,
+           metricHeader: %{metricHeaderEntries: metric_headers}
+         }
+       }) do
+    metric_headers = Enum.map(metric_headers, & &1.name)
+    rows = Map.get(data, :rows, [])
+
+    report =
+      Enum.map(rows, fn %{dimensions: dimensions, metrics: [%{values: metrics}]} ->
+        metrics = Enum.zip(metric_headers, metrics)
+        dimensions = Enum.zip(dimension_headers, dimensions)
+        %{metrics: Map.new(metrics), dimensions: Map.new(dimensions)}
+      end)
+
+    {:ok, report}
+  end
+
+  defp convert_to_maps(response) do
+    Logger.error(
+      "Google Analytics: Failed to read report in response. Reason: #{inspect(response)}"
+    )
+
+    Sentry.Context.set_extra_context(%{google_analytics_response: response})
+    {:error, {:invalid_response, response}}
   end
 
   defp refresh_if_needed(auth) do

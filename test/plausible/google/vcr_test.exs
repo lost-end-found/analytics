@@ -4,7 +4,15 @@ defmodule Plausible.Google.Api.VCRTest do
   require Ecto.Query
   import Plausible.TestUtils
 
-  setup [:create_user, :create_site]
+  setup [:put_http_module, :create_user, :create_site]
+
+  defp put_http_module(_) do
+    old_env = Application.get_env(:plausible, :google)
+    new_env = Keyword.put(old_env, :http_module, Plausible.Google.HTTP)
+    Application.put_env(:plausible, :google, new_env)
+
+    on_exit(fn -> Application.put_env(:plausible, :google, old_env) end)
+  end
 
   defp get_insert_count do
     Plausible.ClickhouseRepo.aggregate(

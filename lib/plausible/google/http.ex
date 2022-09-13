@@ -2,7 +2,6 @@ defmodule Plausible.Google.HTTP do
   require Logger
   alias Plausible.HTTPClient
   alias GoogleApi.AnalyticsReporting.V4.Model.GetReportsResponse
-  alias GoogleApi.AnalyticsReporting.V4.Model.Report
 
   @behaviour Plausible.Google.HTTP.Interface
 
@@ -225,73 +224,11 @@ defmodule Plausible.Google.HTTP do
   defp api_url, do: Keyword.fetch!(config(), :api_url)
   defp redirect_uri, do: PlausibleWeb.Endpoint.url() <> "/auth/google/callback"
 
-  defp parse_report_from_response(raw_body) do
-    with {:ok, map} <- Jason.decode(raw_body),
-         %{"reports" => [report | _]} <- map do
-      {:ok, report}
-    else
-      {:error, cause} ->
-        Logger.error("Google Analytics: Failed to parse JSON. Reason: #{inspect(cause)}")
-        Sentry.Context.set_extra_context(%{google_analytics_response: raw_body})
-        {:error, cause}
-
-      %{} = response ->
-        Logger.error(
-          "Google Analytics: Failed to find report in response. Reason: #{inspect(response)}"
-        )
-
-        Sentry.Context.set_extra_context(%{google_analytics_response: response})
-        {:error, {:invalid_response, response}}
-    end
+  defp map_response(:get_report, {:ok, %Finch.Response{status: 200, body: body}}) do
+    Poison.decode(body, as: %GetReportsResponse{})
   end
 
-  defp convert_to_maps(%{
-         "data" => %{} = data,
-         "columnHeader" => %{
-           "dimensions" => dimension_headers,
-           "metricHeader" => %{"metricHeaderEntries" => metric_headers}
-         }
-       }) do
-    metric_headers = Enum.map(metric_headers, & &1["name"])
-    rows = Map.get(data, "rows", [])
-
-    report =
-      Enum.map(rows, fn %{"dimensions" => dimensions, "metrics" => [%{"values" => metrics}]} ->
-        metrics = Enum.zip(metric_headers, metrics)
-        dimensions = Enum.zip(dimension_headers, dimensions)
-        %{metrics: Map.new(metrics), dimensions: Map.new(dimensions)}
-      end)
-
-    {:ok, report}
-  end
-
-  defp convert_to_maps(response) do
-    Logger.error(
-      "Google Analytics: Failed to read report in response. Reason: #{inspect(response)}"
-    )
-
-    Sentry.Context.set_extra_context(%{google_analytics_response: response})
-    {:error, {:invalid_response, response}}
-  end
-
-  defp map_response(:get_report, %Finch.Response{status: 200, body: body}) do
-    body = Jason.decode!(body)
-
-    %GetReportsResponse{
-      queryCost: body["queryCost"],
-      reports:
-        Enum.map(body["reports"], fn report ->
-          %Report{
-            columnHeader: report["columnHeader"],
-            data: report["data"],
-            nextPageToken: report["nextPageToken"]
-          }
-        end),
-      resourceQuotasRemaining: nil
-    }
-  end
-
-  defp map_response(_, response) do
-    response
+  defp map_response(_, {:error, cause}) do
+    {:error, cause}
   end
 end
