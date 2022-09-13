@@ -1,6 +1,7 @@
 defmodule Plausible.Google.HTTP.Interface do
   @callback get_report(Plausible.Google.ReportRequest.t()) ::
-              {:ok, {[map()], String.t() | nil}} | {:error, any()}
+              {:ok, GoogleApi.AnalyticsReporting.V4.Model.GetReportsResponse.t()}
+              | Plausible.HTTPClient.error()
 
   @callback list_sites(String.t()) ::
               {:ok, map()} | Plausible.HTTPClient.error()

@@ -1,6 +1,8 @@
 defmodule Plausible.Google.HTTP do
   require Logger
   alias Plausible.HTTPClient
+  alias GoogleApi.AnalyticsReporting.V4.Model.GetReportsResponse
+  alias GoogleApi.AnalyticsReporting.V4.Model.Report
 
   @behaviour Plausible.Google.HTTP.Interface
 
@@ -29,17 +31,7 @@ defmodule Plausible.Google.HTTP do
 
     url = "#{reporting_api_url()}/v4/reports:batchGet"
     headers = [{"Authorization", "Bearer #{report_request.access_token}"}]
-    response = HTTPClient.post(url, headers, params)
-    parse_report_response(response)
-  end
-
-  def parse_report_response(response) do
-    with {:ok, %{status: 200, body: body}} <- response,
-         {:ok, report} <- parse_report_from_response(body),
-         token <- Map.get(report, "nextPageToken"),
-         {:ok, report} <- convert_to_maps(report) do
-      {:ok, {report, token}}
-    end
+    map_response(:get_report, HTTPClient.post(url, headers, params))
   end
 
   @impl true
@@ -280,5 +272,26 @@ defmodule Plausible.Google.HTTP do
 
     Sentry.Context.set_extra_context(%{google_analytics_response: response})
     {:error, {:invalid_response, response}}
+  end
+
+  defp map_response(:get_report, %Finch.Response{status: 200, body: body}) do
+    body = Jason.decode!(body)
+
+    %GetReportsResponse{
+      queryCost: body["queryCost"],
+      reports:
+        Enum.map(body["reports"], fn report ->
+          %Report{
+            columnHeader: report["columnHeader"],
+            data: report["data"],
+            nextPageToken: report["nextPageToken"]
+          }
+        end),
+      resourceQuotasRemaining: nil
+    }
+  end
+
+  defp map_response(_, response) do
+    response
   end
 end

@@ -78,6 +78,8 @@ defmodule Plausible.MixProject do
       {:fun_with_flags_ui, "~> 0.8"},
       {:geolix, "~> 2.0"},
       {:geolix_adapter_mmdb2, "~> 0.6.0"},
+      {:google_api_analytics_reporting, "~> 0.17.0"},
+      # XXX: not authenticating yet {:goth, "~> 1.2.0"}
       {:hackney, "~> 1.8"},
       {:hammer, "~> 6.0"},
       {:httpoison, "~> 1.4"},

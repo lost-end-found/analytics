@@ -11,6 +11,15 @@ defmodule Plausible.Google.Api do
   @import_scope URI.encode_www_form("email https://www.googleapis.com/auth/analytics.readonly")
   @verified_permission_levels ["siteOwner", "siteFullUser", "siteRestrictedUser"]
 
+  # def parse_report_response(response) do
+  # with {:ok, %{status: 200, body: body}} <- response,
+  # {:ok, report} <- parse_report_from_response(body),
+  # token <- Map.get(report, "nextPageToken"),
+  # {:ok, report} <- convert_to_maps(report) do
+  # {:ok, {report, token}}
+  # end
+  # end
+
   def authorize_url(site_id, redirect_to) do
     if Application.get_env(:plausible, :environment) == "test" do
       ""

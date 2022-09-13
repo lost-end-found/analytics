@@ -37,6 +37,8 @@ defmodule Plausible.HTTPClient do
     method
     |> build_request(url, headers, params)
     |> do_request
+
+    # |> XXX decode content if content-type provided
   end
 
   defp build_request(method, url, headers, params) do
