@@ -3,7 +3,6 @@ defmodule PlausibleWeb.SiteControllerTest do
   use Plausible.Repo
   use Bamboo.Test
   use Oban.Testing, repo: Plausible.Repo
-  import Plausible.TestUtils
 
   describe "GET /sites/new" do
     setup [:create_user, :log_in]
@@ -381,6 +380,28 @@ defmodule PlausibleWeb.SiteControllerTest do
 
       refute Repo.exists?(Plausible.Site.GoogleAuth)
       assert redirected_to(conn, 302) == "/#{site.domain}/settings/search-console"
+    end
+  end
+
+  describe "GET /:webiste/settings/search-console" do
+    setup [:create_user, :log_in, :create_site]
+
+    test "display search console settings", %{conn: conn, site: site} do
+      conn = get(conn, "/#{site.domain}/settings/search-console")
+      resp = html_response(conn, 200)
+      File.write!("/tmp/resp.html", resp)
+      assert resp =~ "An extra step is needed"
+      assert resp =~ "Google Search Console integration"
+      assert resp =~ "self-hosting-configuration"
+    end
+
+    test "display", %{conn: conn, user: user, site: site} do
+      insert(:google_auth, user: user, site: site, property: "sc-domain:#{site.domain}")
+      conn = get(conn, "/#{site.domain}/settings/search-console")
+      resp = html_response(conn, 200)
+      File.write!("/tmp/resp.html", resp)
+      assert resp =~ "An extra step is needed"
+      assert resp =~ "Google Search Console integration"
     end
   end
 

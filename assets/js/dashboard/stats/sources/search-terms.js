@@ -68,6 +68,7 @@ export default class SearchTerms extends React.Component {
       )
 
     } else if (this.state.notConfigured) {
+      console.info(this.state)
       return (
         <div className="text-center text-gray-700 dark:text-gray-300 text-sm mt-20">
           <RocketIcon />

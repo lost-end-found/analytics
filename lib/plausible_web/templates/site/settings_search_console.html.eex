@@ -45,7 +45,7 @@
               <p class="text-red-700 font-medium mt-3">
                 Your Search Console account hasn't been connected successfully. Please unlink your Google account and try linking it again.
               </p>
-              <% _ -> %>
+            <% _ -> %>
               <p class="text-red-700 font-medium mt-3">
                 Something went wrong, but looks temporary. If the problem persists, try re-linking your Google account.
               </p>
