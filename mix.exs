@@ -48,6 +48,7 @@ defmodule Plausible.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -73,7 +74,7 @@ defmodule Plausible.MixProject do
       {:ecto_sql, "~> 3.0"},
       {:elixir_uuid, "~> 1.2", only: :test},
       {:envy, "~> 1.1.1"},
-      {:ex_machina, "~> 2.3", only: :test},
+      {:ex_machina, "~> 2.3", only: [:dev, :test]},
       {:excoveralls, "~> 0.10", only: :test},
       {:exvcr, "~> 0.11", only: :test},
       {:finch, "~> 0.12.0", override: true},

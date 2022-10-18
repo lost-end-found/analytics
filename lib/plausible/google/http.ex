@@ -108,6 +108,12 @@ defmodule Plausible.Google.HTTP do
       {:ok, %{body: body}} ->
         {:ok, body}
 
+      {:error, %{reason: %{status: s}}} when s in [401, 403] ->
+        {:error, "integration_error"}
+
+      {:error, %{reason: %{body: %{"error" => error}}}} ->
+        {:error, error}
+
       {:error, reason} = e ->
         Logger.error("Google Analytics: failed to list sites: #{inspect(reason)}")
         e
@@ -176,21 +182,19 @@ defmodule Plausible.Google.HTTP do
       {:ok, %Finch.Response{body: body, status: 200}} ->
         {:ok, body}
 
-      {:error, %{reason: %Finch.Response{body: body, status: 401}}} ->
-        Sentry.capture_message("Error fetching Google queries", extra: %{body: inspect(body)})
-        {:error, :invalid_credentials}
+      {:error, %{reason: %Finch.Response{body: _body, status: status}}}
+      when status in [401, 403] ->
+        {:error,
+         """
+         Your Search Console account hasn't been connected successfully. 
+         Please click below to connect your Search Console account.
+         """}
 
-      {:error, %{reason: %Finch.Response{body: body, status: 403}}} ->
-        Sentry.capture_message("Error fetching Google queries", extra: %{body: inspect(body)})
-        {:error, get_in(body, ["error", "message"])}
-
-      {:error, %{reason: %Finch.Response{body: body}}} ->
-        Sentry.capture_message("Error fetching Google queries", extra: %{body: inspect(body)})
-        {:error, :unknown}
-
-      {:error, %{reason: _} = e} ->
-        Sentry.capture_message("Error fetching Google queries", extra: %{error: inspect(e)})
-        {:error, :unknown}
+      {:error, _} ->
+        {:error,
+         """
+         We cannot show the search terms as Search Console is temporarily unavailable. Please try again in a few minutes.
+         """}
     end
   end
 

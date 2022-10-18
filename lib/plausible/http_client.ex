@@ -77,6 +77,17 @@ defmodule Plausible.HTTPClient do
     Finch.request(request, Plausible.Finch)
   end
 
+  defp maybe_decode_body({:ok, %{headers: headers, body: body} = resp})
+       when is_binary(body) and body != "" do
+    if json?(headers) do
+      {:ok, update_in(resp.body, &Jason.decode!/1)}
+    else
+      {:ok, resp}
+    end
+  end
+
+  defp maybe_decode_body(response), do: response
+
   defp maybe_encode_params(params, headers) when is_binary(params) or is_nil(params) do
     {params, headers}
   end
@@ -113,17 +124,6 @@ defmodule Plausible.HTTPClient do
   defp tag_error({:error, _} = error) do
     error
   end
-
-  defp maybe_decode_body({:ok, %{headers: headers, body: body} = resp})
-       when is_binary(body) and body != "" do
-    if json?(headers) do
-      {:ok, update_in(resp.body, &Jason.decode!/1)}
-    else
-      {:ok, resp}
-    end
-  end
-
-  defp maybe_decode_body(resp), do: resp
 
   defp json?(headers) do
     found =
