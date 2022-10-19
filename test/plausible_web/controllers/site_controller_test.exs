@@ -4,6 +4,10 @@ defmodule PlausibleWeb.SiteControllerTest do
   use Bamboo.Test
   use Oban.Testing, repo: Plausible.Repo
 
+  import ExUnit.CaptureLog
+  import Mox
+  setup :verify_on_exit!
+
   describe "GET /sites/new" do
     setup [:create_user, :log_in]
 
@@ -383,25 +387,115 @@ defmodule PlausibleWeb.SiteControllerTest do
     end
   end
 
-  describe "GET /:webiste/settings/search-console" do
+  describe "GET /:webiste/settings/search-console for self-hosting" do
     setup [:create_user, :log_in, :create_site]
 
     test "display search console settings", %{conn: conn, site: site} do
       conn = get(conn, "/#{site.domain}/settings/search-console")
       resp = html_response(conn, 200)
-      File.write!("/tmp/resp.html", resp)
       assert resp =~ "An extra step is needed"
       assert resp =~ "Google Search Console integration"
       assert resp =~ "self-hosting-configuration"
     end
+  end
 
-    test "display", %{conn: conn, user: user, site: site} do
+  describe "GET /:webiste/settings/search-console" do
+    setup [:create_user, :log_in, :create_site]
+
+    setup_patch_env(:google, client_id: "some", api_url: "https://www.googleapis.com")
+
+    setup %{site: site, user: user} = context do
       insert(:google_auth, user: user, site: site, property: "sc-domain:#{site.domain}")
+      context
+    end
+
+    test "displays appropriate error in case of google account `google_auth_error`", %{
+      conn: conn,
+      site: site
+    } do
+      expect(
+        Plausible.HTTPClient.Mock,
+        :get,
+        fn
+          "https://www.googleapis.com/webmasters/v3/sites",
+          [{"Content-Type", "application/json"}, {"Authorization", "Bearer 123"}] ->
+            {:error, %{reason: %Finch.Response{status: Enum.random([401, 403])}}}
+        end
+      )
+
       conn = get(conn, "/#{site.domain}/settings/search-console")
       resp = html_response(conn, 200)
-      File.write!("/tmp/resp.html", resp)
-      assert resp =~ "An extra step is needed"
-      assert resp =~ "Google Search Console integration"
+      assert resp =~ "Your Search Console account hasn't been connected successfully"
+      assert resp =~ "Please unlink your Google account and try linking it again"
+    end
+
+    test "displays docs link error in case of `invalid_grant`", %{
+      conn: conn,
+      site: site
+    } do
+      expect(
+        Plausible.HTTPClient.Mock,
+        :get,
+        fn
+          "https://www.googleapis.com/webmasters/v3/sites",
+          [{"Content-Type", "application/json"}, {"Authorization", "Bearer 123"}] ->
+            {:error, %{reason: %Finch.Response{status: 400, body: %{"error" => "invalid_grant"}}}}
+        end
+      )
+
+      conn = get(conn, "/#{site.domain}/settings/search-console")
+      resp = html_response(conn, 200)
+
+      assert resp =~
+               "https://plausible.io/docs/google-search-console-integration#i-get-the-invalid-grant-error"
+    end
+
+    test "displays generic error in case of random error code returned by google", %{
+      conn: conn,
+      site: site
+    } do
+      expect(
+        Plausible.HTTPClient.Mock,
+        :get,
+        fn
+          "https://www.googleapis.com/webmasters/v3/sites",
+          [{"Content-Type", "application/json"}, {"Authorization", "Bearer 123"}] ->
+            {:error, %{reason: %Finch.Response{status: 503, body: %{"error" => "some_error"}}}}
+        end
+      )
+
+      conn = get(conn, "/#{site.domain}/settings/search-console")
+      resp = html_response(conn, 200)
+
+      assert resp =~ "Something went wrong, but looks temporary"
+      assert resp =~ "try re-linking your Google account"
+    end
+
+    test "displays generic error and logs a message, in case of random HTTP failure calling google",
+         %{
+           conn: conn,
+           site: site
+         } do
+      expect(
+        Plausible.HTTPClient.Mock,
+        :get,
+        fn
+          "https://www.googleapis.com/webmasters/v3/sites",
+          [{"Content-Type", "application/json"}, {"Authorization", "Bearer 123"}] ->
+            {:error, :nxdomain}
+        end
+      )
+
+      log =
+        capture_log(fn ->
+          conn = get(conn, "/#{site.domain}/settings/search-console")
+          resp = html_response(conn, 200)
+
+          assert resp =~ "Something went wrong, but looks temporary"
+          assert resp =~ "try re-linking your Google account"
+        end)
+
+      assert log =~ "Google Analytics: failed to list sites: :nxdomain"
     end
   end
 

@@ -17,6 +17,8 @@ defmodule Plausible.TestUtils do
       on_exit(fn ->
         Application.put_env(:plausible, unquote(env_key), original_env)
       end)
+
+      {:ok, %{patched_env: true}}
     end
   end
 
@@ -32,8 +34,8 @@ defmodule Plausible.TestUtils do
     {:ok, user: Factory.insert(:user)}
   end
 
-  def create_site(%{user: user}) do
-    site = Factory.insert(:site, domain: "test-site.com", members: [user])
+  def create_site(%{user: user}, extra \\ []) do
+    site = Factory.insert(:site, Keyword.merge([domain: "test-site.com", members: [user]], extra))
     {:ok, site: site}
   end
 
