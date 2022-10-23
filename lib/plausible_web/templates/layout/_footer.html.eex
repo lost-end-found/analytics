@@ -7,21 +7,7 @@
           Rakun Analytics
         </h4>
         <p class="mt-4 text-base text-gray-400 leading-6">
-        <%= if !Application.get_env(:plausible, :is_selfhost) do %>
           Made and hosted in the EU <span class="text-lg">🇪🇺</span><br />
-        <% end %>
-        We <a class="text-gray-300 hover:text-white" rel="noreferrer" href="https://plausible.io/giving-back">give back</a> 5% of our revenue<br />
-        100% self-funded and independent <br />
-        Built by <a class="text-gray-100 hover:text-white" rel="noreferrer" href="https://twitter.com/ukutaht">@ukutaht</a> and <a class="text-gray-100 hover:text-white" rel="noreferrer" href="https://twitter.com/markosaric">@markosaric</a><br />
-        </p>
-        <%= if Application.get_env(:plausible, :is_selfhost) do %>
-          <div class="mt-4">
-            <a href="https://github.com/sponsors/plausible" class="inline-flex items-center px-4 py-2 text-sm font-medium bg-gray-700 border border-transparent shadow-sm rounded-md text-gray-50 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
-              <svg class="w-5 h-5 mr-2 -ml-1 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-              Sponsor @plausible
-            </a>
-          </div>
-        <% end %>
       </div>
       <div class="grid grid-cols-2 gap-8 xl:col-span-2">
         <div class="md:grid md:grid-cols-2 md:gap-8">

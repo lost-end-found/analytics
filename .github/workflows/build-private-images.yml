@@ -1,12 +1,7 @@
 name: Build Private Images
 
 on:
-  push:
-    branches: [master, stable]
-    tags: ['r*']
-  pull_request:
-    branches: [master]
-    types: [synchronize, labeled]
+  workflow_dispatch:
 
 jobs:
   build:
