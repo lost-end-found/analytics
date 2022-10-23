@@ -15,7 +15,7 @@
         <div class="ml-3">
           <h3 class="text-sm font-medium text-yellow-800">
             <%= if Plausible.Auth.enterprise?(@conn.assigns[:current_user]) do %>
-              You have outgrown your Plausible subscription tier
+              You have outgrown your Rakun Analyticssubscription tier
             <% else %>
               Please upgrade your account
             <% end %>

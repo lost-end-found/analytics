@@ -1,7 +1,7 @@
 Hey <%= user_salutation(@user) %>,
 <br /><br />
 <%= if @success do %>
-  Your Google Analytics import has completed successfully. The Plausible dashboard for <%= @site.domain %> now contains historical imported data from <%= date_format(@site.imported_data.start_date) %> to <%= date_format(@site.imported_data.end_date) %>
+  Your Google Analytics import has completed successfully. The Rakun Analyticsdashboard for <%= @site.domain %> now contains historical imported data from <%= date_format(@site.imported_data.start_date) %> to <%= date_format(@site.imported_data.end_date) %>
 <br /><br />
 <%= link("Click here", to: @link) %> to view your dashboard.
 <% else %>
@@ -19,7 +19,7 @@ Hey <%= user_salutation(@user) %>,
 
   <ul>
     <li>
-      Do you have any stats in the Google Analytics property you tried to import? We only import the stats from your first Google Analytics visitor until your first Plausible Analytics visitor. The import fails if there's no returned data from Google from before you counted your first Plausible visitor.
+      Do you have any stats in the Google Analytics property you tried to import? We only import the stats from your first Google Analytics visitor until your first Rakun Analytics visitor. The import fails if there's no returned data from Google from before you counted your first Rakun Analyticsvisitor.
     </li>
     <li>
       Did you set strict data retention limits in your Google Analytics account? You can check the data retention limit you have set for your property in your Google Analytics admin settings by visiting the "Tracking Info" section and clicking on "Data Retention".
@@ -35,7 +35,7 @@ Hey <%= user_salutation(@user) %>,
     Please reply to this email to let us know if you're still experiencing issues with the import. Thanks!
     <br /> <br />
 
-    The Plausible Team 💌
+    The Rakun AnalyticsTeam 💌
   <% end %>
 <% end %>
 <br /><br />

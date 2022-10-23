@@ -1,6 +1,6 @@
 Hey <%= user_salutation(@user) %>,
 <br /><br />
-Thanks for being a Plausible Analytics subscriber!
+Thanks for being a Rakun Analytics subscriber!
 <br /><br />
 This is a notice that your traffic has exceeded your subscription tier two months in a row. Congrats on all that traffic!
 <br /><br />
@@ -22,7 +22,7 @@ Have questions or need help with anything? Just reply to this email and we'll gl
 Thanks again for using our product and for your support!
 <br /><br />
 Thanks,<br />
-Uku and Marko<br />
+Larry<br />
 --<br />
 <%= plausible_url() %><br />
 {{{ pm:unsubscribe }}}
