@@ -99,7 +99,7 @@ class Countries extends React.Component {
         popupTemplate: (geo, data) => {
           if (!data) { return null; }
           const pluralizedLabel = data.numberOfThings === 1 ? label.slice(0, -1) : label
-          return ['<div class="hoverinfo dark:bg-gray-800 dark:shadow-gray-850 dark:border-gray-850 dark:text-gray-200">',
+          return ['<div class="hoverinfo bg-gray-800 dark:shadow-gray-850 dark:border-gray-850 dark:text-gray-200">',
             '<strong>', geo.properties.name, ' </strong>',
             '<br><strong class="dark:text-indigo-400">', numberFormatter(data.numberOfThings), '</strong> ', pluralizedLabel,
             '</div>'].join('');

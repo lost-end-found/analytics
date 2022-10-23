@@ -118,7 +118,7 @@ export default class PropertyBreakdown extends React.Component {
           count={value.unique_conversions}
           plot="unique_conversions"
           all={this.state.breakdown}
-          bg="bg-red-50 dark:bg-gray-500 dark:bg-opacity-15"
+          bg="bg-red-50 bg-gray-500 dark:bg-opacity-15"
           maxWidthDeduction={this.getBarMaxWidth()}
         >
           {this.renderPropContent(value, query)}

@@ -80,7 +80,7 @@ export default class Referrers extends React.Component {
         <Bar
           count={referrer.visitors}
           all={this.state.referrers}
-          bg="bg-blue-50 dark:bg-gray-500 dark:bg-opacity-15"
+          bg="bg-blue-50 bg-gray-500 dark:bg-opacity-15"
           maxWidthDeduction={maxWidthDeduction}
         >
           <span className="flex px-2 py-1.5 z-9 relative break-all group">
@@ -161,7 +161,7 @@ export default class Referrers extends React.Component {
   render() {
     return (
       <div
-        className="relative p-4 bg-white rounded shadow-xl stats-item flex flex-col dark:bg-gray-825 mt-6 w-full"
+        className="relative p-4  rounded shadow-xl stats-item flex flex-col bg-black bg-opacity-80  mt-6 w-full"
       >
         <LazyLoader onVisible={this.onVisible} className="flex flex-col flex-grow">
           <h3 className="font-bold dark:text-gray-100">Top Referrers</h3>

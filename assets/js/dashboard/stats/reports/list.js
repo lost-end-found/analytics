@@ -78,7 +78,7 @@ export default function ListReport(props) {
         <Bar
           count={listItem[valueKey]}
           all={state.list}
-          bg={`${lightBackground} dark:bg-gray-500 dark:bg-opacity-15`}
+          bg={`${lightBackground} bg-gray-500 dark:bg-opacity-15`}
           maxWidthDeduction={maxWidthDeduction}
           plot={valueKey}
         >

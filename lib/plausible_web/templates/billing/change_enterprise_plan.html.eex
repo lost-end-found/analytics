@@ -28,7 +28,7 @@
 </script>
 
 <div class="w-full max-w-lg px-4 mx-auto mt-4">
-  <div x-init="fetchPlan()" x-data="window.plan()" class="flex-1 p-8 mt-8 bg-white rounded shadow-md dark:bg-gray-800">
+  <div x-init="fetchPlan()" x-data="window.plan()" class="flex-1 p-8 mt-8 rounded shadow-md bg-gray-800">
     <div x-show="!localizedPlan" class="mx-auto my-40 loading sm"><div></div></div>
     <template x-if="localizedPlan">
       <div>

@@ -54,7 +54,7 @@ class AllSources extends React.Component {
         <Bar
           count={referrer.visitors}
           all={this.state.referrers}
-          bg="bg-blue-50 dark:bg-gray-500 dark:bg-opacity-15"
+          bg="bg-blue-50 bg-gray-500 dark:bg-opacity-15"
           maxWidthDeduction={maxWidthDeduction}
         >
           <span className="flex px-2 py-1.5 dark:text-gray-300 relative z-9 break-all">
@@ -129,7 +129,7 @@ class AllSources extends React.Component {
   render() {
     return (
       <div
-        className="relative p-4 bg-white rounded shadow-xl stats-item flex flex-col mt-6 w-full dark:bg-gray-825"
+        className="relative p-4  rounded shadow-xl stats-item flex flex-col mt-6 w-full bg-black bg-opacity-80 "
       >
         {this.renderContent()}
       </div>
@@ -188,7 +188,7 @@ class UTMSources extends React.Component {
         <Bar
           count={referrer.visitors}
           all={this.state.referrers}
-          bg="bg-blue-50 dark:bg-gray-500 dark:bg-opacity-15"
+          bg="bg-blue-50 bg-gray-500 dark:bg-opacity-15"
           maxWidthDeduction={maxWidthDeduction}
         >
 
@@ -260,7 +260,7 @@ class UTMSources extends React.Component {
   render() {
     return (
       <div
-        className="relative p-4 bg-white rounded shadow-xl stats-item flex flex-col dark:bg-gray-825 mt-6 w-full"
+        className="relative p-4 rounded shadow-xl stats-item flex flex-col bg-black bg-opacity-80 mt-6 w-full"
       >
         {this.renderContent()}
       </div>
@@ -317,7 +317,7 @@ export default class SourceList extends React.Component {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="text-left origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+            <Menu.Items className="text-left origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-black bg-opacity-90  ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
               <div className="py-1">
                 {dropdownOptions.map((option) => {
                   return (
@@ -326,7 +326,7 @@ export default class SourceList extends React.Component {
                         <span
                           onClick={this.setTab(option)}
                           className={classNames(
-                            active ? 'bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 cursor-pointer' : 'text-gray-700 dark:text-gray-200',
+                            active ? 'bg-gray-100 bg-gray-900 text-gray-900 dark:text-gray-200 cursor-pointer' : 'text-gray-700 dark:text-gray-200',
                             'block px-4 py-2 text-sm',
                             this.state.tab === option ? 'font-bold' : ''
                           )}

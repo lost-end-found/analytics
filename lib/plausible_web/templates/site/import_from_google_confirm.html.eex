@@ -1,4 +1,4 @@
-<%= form_for @conn, Routes.site_path(@conn, :import_from_google, @site.domain), [class: "max-w-md w-full mx-auto bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8"], fn f -> %>
+<%= form_for @conn, Routes.site_path(@conn, :import_from_google, @site.domain), [class: "max-w-md w-full mx-auto bg-black bg-opacity-90  shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8"], fn f -> %>
   <h2 class="text-xl font-black dark:text-gray-100">Import from Google Analytics</h2>
 
   <%= hidden_input(f, :access_token, value: @access_token) %>
@@ -14,19 +14,19 @@
 
       <div class="mt-6">
         <%= styled_label(f, :view_id, "Google Analytics view") %>
-        <span class="block w-full text-base dark:text-gray-100 sm:text-sm dark:bg-gray-800"><%= @selected_view_id_name %></span>
+        <span class="block w-full text-base dark:text-gray-100 sm:text-sm bg-gray-800"><%= @selected_view_id_name %></span>
         <%= hidden_input f, :view_id, readonly: "true", value: @selected_view_id %>
       </div>
       <div class="flex justify-between mt-3">
         <div class="w-36">
           <%= styled_label f, :start_date, "From"  %>
-          <span class="block w-full text-base dark:text-gray-100 sm:text-sm dark:bg-gray-800"><%= PlausibleWeb.EmailView.date_format(start_date) %></span>
+          <span class="block w-full text-base dark:text-gray-100 sm:text-sm bg-gray-800"><%= PlausibleWeb.EmailView.date_format(start_date) %></span>
           <%= hidden_input f, :start_date, value: start_date, readonly: "true" %>
         </div>
         <div class="align-middle pt-4 dark:text-gray-100">&rarr;</div>
         <div class="w-36">
           <%= styled_label f, :end_date, "To"  %>
-          <span class="block w-full text-base dark:text-gray-100 sm:text-sm dark:bg-gray-800"><%= PlausibleWeb.EmailView.date_format(@end_date) %></span>
+          <span class="block w-full text-base dark:text-gray-100 sm:text-sm bg-gray-800"><%= PlausibleWeb.EmailView.date_format(@end_date) %></span>
           <%= hidden_input f, :end_date, value: @end_date, readonly: "true" %>
         </div>
       </div>

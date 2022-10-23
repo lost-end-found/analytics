@@ -1,6 +1,6 @@
 <%= form_for @changeset, "/#{URI.encode_www_form(@site.domain)}/settings", fn f -> %>
   <div class="shadow sm:rounded-md sm:overflow-hidden">
-    <div class="bg-white dark:bg-gray-800 py-6 px-4 space-y-6 sm:p-6">
+    <div class="bg-black bg-opacity-90  py-6 px-4 space-y-6 sm:p-6">
       <header class="relative">
         <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">General information</h2>
         <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">Update your reporting timezone.</p>
@@ -10,16 +10,16 @@
       </header>
 
       <div class="grid grid-cols-4 gap-6">
-        <div class="col-span-4 sm:col-span-2"> <%= label f, :domain, class: "block text-sm font-medium leading-5 text-gray-700 dark:text-gray-300" %> <%= text_input f, :domain, class: "dark:bg-gray-900 mt-1 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 dark:border-gray-500 rounded-md dark:text-gray-100", disabled: "disabled" %>
+        <div class="col-span-4 sm:col-span-2"> <%= label f, :domain, class: "block text-sm font-medium leading-5 text-gray-700 dark:text-gray-300" %> <%= text_input f, :domain, class: "bg-gray-900 mt-1 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 dark:border-gray-500 rounded-md dark:text-gray-100", disabled: "disabled" %>
         </div>
 
         <div class="col-span-4 sm:col-span-2">
           <%= label f, :timezone, "Reporting Timezone", class: "block text-sm font-medium leading-5 text-gray-700 dark:text-gray-300" %>
-          <%= select f, :timezone, Plausible.Timezones.options(), class: "dark:bg-gray-900  mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:text-gray-100 cursor-pointer" %>
+          <%= select f, :timezone, Plausible.Timezones.options(), class: "bg-gray-900  mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:text-gray-100 cursor-pointer" %>
         </div>
       </div>
     </div>
-    <div class="px-4 py-3 bg-gray-50 dark:bg-gray-850 text-right sm:px-6">
+    <div class="px-4 py-3 bg-gray-50 bg-gray-850 text-right sm:px-6">
       <span class="inline-flex rounded-md shadow-sm">
         <%= submit "Save", class: "button" %>
       </span>
@@ -27,7 +27,7 @@
   </div>
 <% end %>
 
-<%= form_for @conn, "/", [class: "shadow bg-white dark:bg-gray-800 sm:rounded-md sm:overflow-hidden py-6 px-4 sm:p-6"], fn f -> %>
+<%= form_for @conn, "/", [class: "shadow bg-black bg-opacity-90  sm:rounded-md sm:overflow-hidden py-6 px-4 sm:p-6"], fn f -> %>
   <header class="relative">
     <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Javascript snippet</h2>
     <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">Include this snippet in the <code>&lt;head&gt;</code> of your website.</p>
@@ -39,7 +39,7 @@
 
   <div class="my-4">
     <div class="relative">
-      <code><%= textarea f, :domain, id: "snippet_code", class: "transition overflow-hidden bg-gray-100 dark:bg-gray-900 outline-none appearance-none border border-transparent rounded w-full p-2 pr-6 text-gray-700 dark:text-gray-300 leading-normal focus:outline-none focus:bg-white focus:border-gray-300 dark:focus:border-gray-500 text-xs mt-2 resize-none", value: snippet(@site), rows: 2 %></code>
+      <code><%= textarea f, :domain, id: "snippet_code", class: "transition overflow-hidden bg-gray-100 bg-gray-900 outline-none appearance-none border border-transparent rounded w-full p-2 pr-6 text-gray-700 dark:text-gray-300 leading-normal focus:outline-none focus:focus:border-gray-300 dark:focus:border-gray-500 text-xs mt-2 resize-none", value: snippet(@site), rows: 2 %></code>
       <a onclick="var textarea = document.getElementById('snippet_code'); textarea.focus(); textarea.select(); document.execCommand('copy');" href="javascript:void(0)" class="no-underline text-indigo-500 text-sm hover:underline">
         <svg class="absolute text-indigo-500" style="top: 24px; right: 12px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
       </a>
@@ -47,7 +47,7 @@
   </div>
 <% end %>
 
-<div class="shadow bg-white dark:bg-gray-800 sm:rounded-md sm:overflow-hidden py-6 px-4 sm:p-6">
+<div class="shadow bg-black bg-opacity-90  sm:rounded-md sm:overflow-hidden py-6 px-4 sm:p-6">
   <header class="relative mt-4">
     <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Data Import from Google Analytics</h2>
     <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">Import existing data from your Google Analytics account.</p>
@@ -72,7 +72,7 @@
             From <%= PlausibleWeb.EmailView.date_format(@site.imported_data.start_date) %> to <%= PlausibleWeb.EmailView.date_format(@site.imported_data.end_date) %>
             </p>
           </div>
-          <%= link("Cancel import", to: "/#{URI.encode_www_form(@site.domain)}/settings/forget-imported", method: :delete, class: "inline-block mt-4 px-4 py-2 border border-gray-300 dark:border-gray-500 text-sm leading-5 font-medium rounded-md text-red-700 bg-white dark:bg-gray-800 hover:text-red-500 dark:hover:text-red-400 focus:outline-none focus:border-blue-300 focus:ring active:text-red-800 active:bg-gray-50 transition ease-in-out duration-150") %>
+          <%= link("Cancel import", to: "/#{URI.encode_www_form(@site.domain)}/settings/forget-imported", method: :delete, class: "inline-block mt-4 px-4 py-2 border border-gray-300 dark:border-gray-500 text-sm leading-5 font-medium rounded-md text-red-700 bg-black bg-opacity-90  hover:text-red-500 dark:hover:text-red-400 focus:outline-none focus:border-blue-300 focus:ring active:text-red-800 active:bg-gray-50 transition ease-in-out duration-150") %>
         </li>
 
         <% @site.imported_data && @site.imported_data.status == "ok" -> %>
@@ -88,7 +88,7 @@
               From <%= PlausibleWeb.EmailView.date_format(@site.imported_data.start_date) %> to <%= PlausibleWeb.EmailView.date_format(@site.imported_data.end_date) %>
               </p>
             </div>
-            <%= link("Clear " <> PlausibleWeb.StatsView.large_number_format(@imported_pageviews) <> " imported pageviews", to: "/#{URI.encode_www_form(@site.domain)}/settings/forget-imported", method: :delete, class: "inline-block mt-4 px-4 py-2 border border-gray-300 dark:border-gray-500 text-sm leading-5 font-medium rounded-md text-red-700 bg-white dark:bg-gray-800 hover:text-red-500 dark:hover:text-red-400 focus:outline-none focus:border-blue-300 focus:ring active:text-red-800 active:bg-gray-50 transition ease-in-out duration-150") %>
+            <%= link("Clear " <> PlausibleWeb.StatsView.large_number_format(@imported_pageviews) <> " imported pageviews", to: "/#{URI.encode_www_form(@site.domain)}/settings/forget-imported", method: :delete, class: "inline-block mt-4 px-4 py-2 border border-gray-300 dark:border-gray-500 text-sm leading-5 font-medium rounded-md text-red-700 bg-black bg-opacity-90  hover:text-red-500 dark:hover:text-red-400 focus:outline-none focus:border-blue-300 focus:ring active:text-red-800 active:bg-gray-50 transition ease-in-out duration-150") %>
           </li>
 
           <% true -> %>

@@ -69,7 +69,7 @@ export default class Conversions extends React.Component {
           <Bar
             count={goal.unique_conversions}
             all={this.state.goals}
-            bg="bg-red-50 dark:bg-gray-500 dark:bg-opacity-15"
+            bg="bg-red-50 bg-gray-500 dark:bg-opacity-15"
             maxWidthDeduction={this.getBarMaxWidth()}
             plot="unique_conversions"
           >
@@ -111,7 +111,7 @@ export default class Conversions extends React.Component {
 
   render() {
     return (
-      <LazyLoader className="w-full p-4 bg-white rounded shadow-xl dark:bg-gray-825" style={{minHeight: '132px', height: this.state.prevHeight ?? 'auto'}} onVisible={this.onVisible} ref={this.htmlNode}>
+      <LazyLoader className="w-full p-4 rounded shadow-xl bg-black bg-opacity-80" style={{minHeight: '132px', height: this.state.prevHeight ?? 'auto'}} onVisible={this.onVisible} ref={this.htmlNode}>
         { this.renderInner() }
       </LazyLoader>
     )

@@ -112,7 +112,7 @@ function filterDropdownOption(site, option) {
         <Link
           to={{ pathname: `/${encodeURIComponent(site.domain)}/filter/${option}`, search: window.location.search }}
           className={classNames(
-            active ? 'bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100' : 'text-gray-800 dark:text-gray-300',
+            active ? 'bg-gray-100 bg-gray-900 text-gray-900 dark:text-gray-100' : 'text-gray-800 dark:text-gray-300',
             'block px-4 py-2 text-sm font-medium'
           )}
         >
@@ -236,7 +236,7 @@ class Filters extends React.Component {
 
   renderListFilter(history, [key, value], query) {
     return (
-      <span key={key} title={value} className="flex bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow text-sm rounded mr-2 items-center">
+      <span key={key} title={value} className="flex bg-black bg-opacity-90  text-gray-700 dark:text-gray-300 shadow text-sm rounded mr-2 items-center">
         <Link title={`Edit filter: ${formattedFilters[key]}`} className="flex w-full h-full items-center py-2 pl-3" to={{ pathname: `/${encodeURIComponent(this.props.site.domain)}/filter/${filterGroupForFilter(key)}`, search: window.location.search }}>
           <span className="inline-block max-w-2xs md:max-w-xs truncate">{filterText(key, value, query)}</span>
         </Link>
@@ -295,7 +295,7 @@ class Filters extends React.Component {
                 className="absolute w-full left-0 right-0 md:w-72 md:absolute md:top-auto md:left-auto md:right-0 mt-2 origin-top-right z-10"
               >
                 <div
-                  className="rounded-md shadow-lg  bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5
+                  className="rounded-md shadow-lg  bg-black bg-opacity-90  ring-1 ring-black ring-opacity-5
                   font-medium text-gray-800 dark:text-gray-200"
                 >
                   <DropdownContent history={history} query={query} site={site} wrapped={this.state.wrapped} />

@@ -38,13 +38,13 @@ function renderArrow(query, site, period, prevDate, nextDate) {
 
   const leftClasses = `flex items-center px-1 sm:px-2 border-r border-gray-300 rounded-l
       dark:border-gray-500 dark:text-gray-100 ${
-      disabledLeft ? "bg-gray-300 dark:bg-gray-950" : "hover:bg-gray-100 dark:hover:bg-gray-900"
+      disabledLeft ? "bg-gray-300 bg-gray-950" : "hover:bg-gray-100 dark:hover:bg-gray-900"
     }`;
   const rightClasses = `flex items-center px-1 sm:px-2 rounded-r dark:text-gray-100 ${
-      disabledRight ? "bg-gray-300 dark:bg-gray-950" : "hover:bg-gray-100 dark:hover:bg-gray-900"
+      disabledRight ? "bg-gray-300 bg-gray-950" : "hover:bg-gray-100 dark:hover:bg-gray-900"
     }`;
   return (
-    <div className="flex rounded shadow bg-white mr-2 sm:mr-4 cursor-pointer dark:bg-gray-800">
+    <div className="flex rounded shadow mr-2 sm:mr-4 cursor-pointer bg-gray-800">
       <QueryButton
         to={{ date: prevDate }}
         query={query}
@@ -324,7 +324,7 @@ class DatePicker extends React.Component {
           className="absolute w-full left-0 right-0 md:w-56 md:absolute md:top-auto md:left-auto md:right-0 mt-2 origin-top-right z-10"
         >
           <div
-            className="rounded-md shadow-lg  bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5
+            className="rounded-md shadow-lg  bg-black bg-opacity-90  ring-1 ring-black ring-opacity-5
             font-medium text-gray-800 dark:text-gray-200 date-options"
           >
             <div className="py-1 border-b border-gray-200 dark:border-gray-500 date-option-group">
@@ -396,7 +396,7 @@ class DatePicker extends React.Component {
         <div
           onClick={this.toggle}
           onKeyPress={this.toggle}
-          className="flex items-center justify-between rounded bg-white dark:bg-gray-800 shadow px-2 md:px-3
+          className="flex items-center justify-between rounded bg-black bg-opacity-90  shadow px-2 md:px-3
           py-2 leading-tight cursor-pointer text-xs md:text-sm text-gray-800
           dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-900"
           tabIndex="0"

@@ -39,7 +39,7 @@ export default class SearchTerms extends React.Component {
         <Bar
           count={term.visitors}
           all={this.state.searchTerms}
-          bg="bg-blue-50 dark:bg-gray-500 dark:bg-opacity-15"
+          bg="bg-blue-50 bg-gray-500 dark:bg-opacity-15"
           maxWidthDeduction="4rem"
         >
           <span className="flex px-2 py-1.5 dark:text-gray-300 z-9 relative break-all">
@@ -112,7 +112,7 @@ export default class SearchTerms extends React.Component {
   render() {
     return (
       <div
-        className="stats-item flex flex-col relative bg-white dark:bg-gray-825 shadow-xl rounded p-4 mt-6 w-full"
+        className="stats-item flex flex-col relative bg-black bg-opacity-80  shadow-xl rounded p-4 mt-6 w-full"
       >
         { this.state.loading && <div className="loading mt-44 mx-auto"><div></div></div> }
         <FadeIn show={!this.state.loading} className="flex-grow">

@@ -1,6 +1,6 @@
 <div class="w-full max-w-3xl mt-4 mx-auto flex">
   <%= if @has_pin do %>
-    <%= form_for @conn, "/activate", [class: "w-full max-w-lg mx-auto bg-white dark:bg-gray-800 shadow-md rounded px-8 py-6 mb-4 mt-8"], fn f -> %>
+    <%= form_for @conn, "/activate", [class: "w-full max-w-lg mx-auto bg-black bg-opacity-90  shadow-md rounded px-8 py-6 mb-4 mt-8"], fn f -> %>
       <h2 class="text-xl font-black dark:text-gray-100">Activate your account</h2>
 
       <div class="mt-2 text-sm text-gray-500 dark:text-gray-200 leading-tight">
@@ -9,7 +9,7 @@
 
       <div class="mt-12 flex items-stretch flex-grow">
         <div>
-          <%= text_input f, :code, class: "tracking-widest font-medium shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-36 px-8 border-gray-300 dark:border-gray-500 rounded-l-md dark:text-gray-200 dark:bg-gray-900", oninput: "this.value=this.value.replace(/[^0-9]/g, ''); if (this.value.length >= 4) document.getElementById('submit').focus()", onclick: "this.select();", maxlength: "4", placeholder: "••••", style: "letter-spacing: 10px;", required: "required" %>
+          <%= text_input f, :code, class: "tracking-widest font-medium shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-36 px-8 border-gray-300 dark:border-gray-500 rounded-l-md dark:text-gray-200 bg-gray-900", oninput: "this.value=this.value.replace(/[^0-9]/g, ''); if (this.value.length >= 4) document.getElementById('submit').focus()", onclick: "this.select();", maxlength: "4", placeholder: "••••", style: "letter-spacing: 10px;", required: "required" %>
         </div>
         <button id="submit" class="button rounded-l-none">Activate &rarr;</button>
       </div>
@@ -37,7 +37,7 @@
       </ul>
     <% end %>
   <% else %>
-    <div class="w-full max-w-lg mx-auto bg-white dark:bg-gray-800 shadow-md rounded px-8 py-6 mb-4 mt-8">
+    <div class="w-full max-w-lg mx-auto bg-black bg-opacity-90  shadow-md rounded px-8 py-6 mb-4 mt-8">
       <h2 class="text-xl font-black dark:text-gray-100">Activate your account</h2>
 
       <div class="mt-2 text-sm text-gray-500 dark:text-gray-200 leading-tight">

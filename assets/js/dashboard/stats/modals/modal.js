@@ -85,7 +85,7 @@ class Modal extends React.Component {
           <button className="modal__close"></button>
           <div
             ref={this.node}
-            className="modal__container dark:bg-gray-800"
+            className="modal__container bg-gray-800"
             style={this.getStyle()}
           >
             {this.props.children}
