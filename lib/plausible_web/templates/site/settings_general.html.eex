@@ -4,7 +4,7 @@
       <header class="relative">
         <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">General information</h2>
         <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">Update your reporting timezone.</p>
-        <%= link(to: "https://plausible.io/docs/general/", target: "_blank", rel: "noreferrer") do %>
+        <%= link(to: "https://analytics.rakun.ie/docs/general/", target: "_blank", rel: "noreferrer") do %>
           <svg class="w-6 h-6 absolute top-0 right-0 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
         <% end %>
       </header>
@@ -32,7 +32,7 @@
     <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Javascript snippet</h2>
     <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">Include this snippet in the <code>&lt;head&gt;</code> of your website.</p>
 
-    <%= link(to: "https://plausible.io/docs/plausible-script", target: "_blank", rel: "noreferrer") do %>
+    <%= link(to: "https://analytics.rakun.ie/docs/plausible-script", target: "_blank", rel: "noreferrer") do %>
       <svg class="w-6 h-6 absolute top-0 right-0 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
     <% end %>
   </header>
@@ -51,7 +51,7 @@
   <header class="relative mt-4">
     <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Data Import from Google Analytics</h2>
     <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">Import existing data from your Google Analytics account.</p>
-    <%= link(to: "https://plausible.io/docs/google-analytics-import", target: "_blank", rel: "noreferrer") do %>
+    <%= link(to: "https://analytics.rakun.ie/docs/google-analytics-import", target: "_blank", rel: "noreferrer") do %>
       <svg class="w-6 h-6 absolute top-0 right-0 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
     <% end %>
   </header>
@@ -107,7 +107,7 @@
           <div class="my-8 text-center text-lg">
             <svg class="block mx-auto mb-4 w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             <p class="text-gray-900 dark:text-gray-200">An extra step is needed to set up your Rakun Analytics Self Hosted for the Google Search Console integration.
-            Find instructions <%= link("here", to: "https://plausible.io/docs/self-hosting-configuration#google-search-integration", class: "text-indigo-500") %></p>
+            Find instructions <%= link("here", to: "https://analytics.rakun.ie/docs/self-hosting-configuration#google-search-integration", class: "text-indigo-500") %></p>
           </div>
         <% end %>
 </div>

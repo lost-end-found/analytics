@@ -10,7 +10,7 @@ This is more than our standard plans, so please reply back to this email to get 
 <% else %>
 Based on that we recommend you select the <%= @suggested_plan[:volume] %>/mo plan.
 <br /><br />
-<a href="https://plausible.io/settings">Click here</a> to go to your site settings. You can upgrade your subscription tier by clicking the 'change plan' link.
+<a href="https://analytics.rakun.ie/settings">Click here</a> to go to your site settings. You can upgrade your subscription tier by clicking the 'change plan' link.
 <% end %>
 <br /><br />
 The new charge will be prorated to reflect the amount you have already paid and the time until your current subscription is supposed to expire. We will unlock your dashboard immediately after your account has been upgraded to the appropriate tier.

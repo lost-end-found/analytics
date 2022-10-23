@@ -1,5 +1,5 @@
 name: "🐛 Bug Report"
-description: Create a report to help us improve Plausible Analytics
+description: Create a report to help us improve Rakun Analytics
 body:
   - type: markdown
     attributes:
@@ -8,7 +8,7 @@ body:
 
        Please note that this tracker is only for bugs. Do not use the issue tracker for help, customer support or feature requests.
 
-       [Our docs](https://plausible.io/docs) are a great place for most answers, but if you can’t find your answer there, you can [contact our customer support](https://plausible.io/contact).
+       [Our docs](https://analytics.rakun.ie/docs) are a great place for most answers, but if you can’t find your answer there, you can [contact our customer support](https://analytics.rakun.ie/contact).
 
        Have a feature request? Please search the ideas [on our forum](https://github.com/plausible/analytics/discussions/categories/feature-requests) to make sure that the feature has not yet been requested. If you cannot find what you had in mind, please [submit your feature request here](https://github.com/plausible/analytics/discussions/new).
 

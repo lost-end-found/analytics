@@ -131,7 +131,7 @@ defmodule Plausible.Google.Api do
 
   Useful links:
 
-  - [Feature documentation](https://plausible.io/docs/google-analytics-import)
+  - [Feature documentation](https://analytics.rakun.ie/docs/google-analytics-import)
   - [GA API reference](https://developers.google.com/analytics/devguides/reporting/core/v4/rest/v4/reports/batchGet#ReportRequest)
   - [GA Dimensions reference](https://ga-dev-tools.web.app/dimensions-metrics-explorer)
 

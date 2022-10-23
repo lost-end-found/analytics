@@ -58,7 +58,7 @@ const changelogNotification = document.getElementById('changelog-notification')
 if (changelogNotification) {
   showChangelogNotification(changelogNotification)
 
-  fetch('https://plausible.io/changes.txt', {headers: {'Content-Type': 'text/plain'}})
+  fetch('https://analytics.rakun.ie/changes.txt', {headers: {'Content-Type': 'text/plain'}})
     .then((res) => res.text())
     .then((res) => {
       localStorage.lastChangelogUpdate = new Date(res).getTime()
@@ -74,7 +74,7 @@ function showChangelogNotification(el) {
   const notOlderThanThreeDays = Date.now() - lastUpdated <  1000 * 60 * 60 * 72
   if ((!lastChecked || hasNewUpdateSinceLastClicked) && notOlderThanThreeDays) {
     el.innerHTML = `
-      <a href="https://plausible.io/changelog" target="_blank">
+      <a href="https://analytics.rakun.ie/changelog" target="_blank">
         <svg class="w-5 h-5 text-gray-600 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
         </svg>
@@ -109,7 +109,7 @@ if (embedButton) {
       }
 
       embedCode.value = `<iframe plausible-embed src="${embedLink.toString()}" scrolling="no" frameborder="0" loading="lazy" style="width: 1px; min-width: 100%; height: 1600px;"></iframe>
-<div style="font-size: 14px; padding-bottom: 14px;">Stats powered by <a target="_blank" style="color: #4F46E5; text-decoration: underline;" href="https://plausible.io">Plausible Analytics</a></div>
+<div style="font-size: 14px; padding-bottom: 14px;">Stats powered by <a target="_blank" style="color: #4F46E5; text-decoration: underline;" href="https://analytics.rakun.ie">Rakun Analytics</a></div>
 <script async src="${baseUrl}/js/embed.host.js"></script>`
     } catch (e) {
       console.error(e)

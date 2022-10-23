@@ -28,7 +28,7 @@ defmodule PlausibleWeb.Api.ExternalStatsController.TimeseriesTest do
 
       assert json_response(conn, 400) == %{
                "error" =>
-                 "Error parsing `period` parameter: invalid period `aosuhsacp`. Please find accepted values in our docs: https://plausible.io/docs/stats-api#time-periods"
+                 "Error parsing `period` parameter: invalid period `aosuhsacp`. Please find accepted values in our docs: https://analytics.rakun.ie/docs/stats-api#time-periods"
              }
     end
 

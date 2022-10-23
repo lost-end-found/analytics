@@ -76,8 +76,8 @@ defmodule PlausibleWeb.StatsView do
   Returns a readable stats URL.
 
   Native Phoenix router functions percent-encode all diacritics, resulting in
-  ugly URLs, e.g. `https://plausible.io/café.com` transforms into
-  `https://plausible.io/caf%C3%A9.com`.
+  ugly URLs, e.g. `https://analytics.rakun.ie/café.com` transforms into
+  `https://analytics.rakun.ie/caf%C3%A9.com`.
 
   This function encodes only the slash (`/`) character from the site's domain.
 

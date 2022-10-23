@@ -26,7 +26,7 @@
             </p>
             <div class="mt-6 text-sm text-gray-500">
               <p>Want to pay for this site with the account you're logged in with?</p>
-              <p class="mt-1">Contact <%= @owner.email %> and ask them to <%= link("transfer the ownership", class: "text-indigo-500", to: "https://plausible.io/docs/transfer-ownership", rel: "noreferrer") %> of the site over to you</p>
+              <p class="mt-1">Contact <%= @owner.email %> and ask them to <%= link("transfer the ownership", class: "text-indigo-500", to: "https://analytics.rakun.ie/docs/transfer-ownership", rel: "noreferrer") %> of the site over to you</p>
             </div>
           </div>
           <div class="mt-6 w-full text-center">
