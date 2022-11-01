@@ -8,7 +8,7 @@ Congrats! The Rakun Analyticsscript has been installed correctly on <%= link(@si
   You're on a 30-day unlimited-use free trial with no obligations so do take your time to explore your simple and privacy-friendly website analytics dashboard.
   <br /><br />
 <% end %>
-PS: You can import your historical Google Analytics (Universal Analytics) stats into your Rakun Analyticsdashboard. <%= link("Learn how our GA importer works", to: "https://analytics.rakun.ie/docs/google-analytics-import") %>.
+PS: You can import your historical Google Analytics (Universal Analytics) stats into your Rakun Analyticsdashboard. <%= link("Learn how our GA importer works", to: "https://plausible.io/docs/google-analytics-import") %>.
 <br /><br />
 Do reply back to this email if you have any questions.
 <br /><br />

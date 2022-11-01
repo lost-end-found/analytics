@@ -27,7 +27,7 @@ defmodule PlausibleWeb.Api.ExternalStatsController.BreakdownTest do
 
       assert json_response(conn, 400) == %{
                "error" =>
-                 "Error parsing `period` parameter: invalid period `bad_period`. Please find accepted values in our docs: https://analytics.rakun.ie/docs/stats-api#time-periods"
+                 "Error parsing `period` parameter: invalid period `bad_period`. Please find accepted values in our docs: https://plausible.io/docs/stats-api#time-periods"
              }
     end
 
@@ -41,7 +41,7 @@ defmodule PlausibleWeb.Api.ExternalStatsController.BreakdownTest do
 
       assert json_response(conn, 400) == %{
                "error" =>
-                 "The metric `baa` is not recognized. Find valid metrics from the documentation: https://analytics.rakun.ie/docs/stats-api#get-apiv1statsbreakdown"
+                 "The metric `baa` is not recognized. Find valid metrics from the documentation: https://plausible.io/docs/stats-api#get-apiv1statsbreakdown"
              }
     end
 

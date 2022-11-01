@@ -34,7 +34,7 @@ Here's what makes Plausible a great Google Analytics alternative and why we're t
 - **Open website stats**: You have the option to be transparent and open your web analytics to everyone. Your website stats are private by default but you can choose to make them public so anyone with your custom link can view them.
 - **Define key goals and track conversions**: Set custom events or page URLs as your goals and see how they convert over time to understand and identify the trends that matter. Includes easy ways to track outbound link clicks and 404 error pages.
 - **Search keywords**: Integrate your dashboard with Google Search Console to get the most accurate reporting on your search keywords.
-- **SPA support**: Plausible is built with modern web frameworks in mind and it works automatically with any pushState based router on the frontend. We also support frameworks that use the URL hash for routing. See [our documentation](https://analytics.rakun.ie/docs/hash-based-routing).
+- **SPA support**: Plausible is built with modern web frameworks in mind and it works automatically with any pushState based router on the frontend. We also support frameworks that use the URL hash for routing. See [our documentation](https://plausible.io/docs/hash-based-routing).
 
 Interested to learn more? [Read more on our website](https://analytics.rakun.ie), learn more about the team and the goals of the project on [our about page](https://analytics.rakun.ie/about) or explore [the documentation](https://analytics.rakun.ie/docs).
 
@@ -73,7 +73,7 @@ The main difference between the two is that the self-hosted version you have to 
 | Support | Premium support is available via email. | Community support only.|
 | Releases | Continuously developed and improved with new features and updates multiple times per week. | [It's a long term release](https://analytics.rakun.ie/blog/building-open-source) published twice per year so latest features won't be immediately available as they're battled-tested in the cloud first. You can see all the [currently unreleased features in the changelog](https://github.com/plausible/analytics/blob/master/CHANGELOG.md).|
 
-Interested in self-hosting Plausible on your server? Take a look at our [self-hosting installation instructions](https://analytics.rakun.ie/docs/self-hosting).
+Interested in self-hosting Plausible on your server? Take a look at our [self-hosting installation instructions](https://plausible.io/docs/self-hosting).
 
 Plausible Self-Hosted is a community supported project and there are no guarantees that you will get support from the creators of Plausible to troubleshoot your self-hosting issues. There is a [community supported forum](https://github.com/plausible/analytics/discussions/categories/self-hosted-support) where you can ask for help.
 

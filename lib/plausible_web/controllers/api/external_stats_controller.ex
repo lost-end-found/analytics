@@ -143,7 +143,7 @@ defmodule PlausibleWeb.Api.ExternalStatsController do
 
         true ->
           {:error,
-           "The metric `#{invalid_metric}` is not recognized. Find valid metrics from the documentation: https://analytics.rakun.ie/docs/stats-api#get-apiv1statsbreakdown"}
+           "The metric `#{invalid_metric}` is not recognized. Find valid metrics from the documentation: https://plausible.io/docs/stats-api#get-apiv1statsbreakdown"}
       end
     else
       {:ok, Enum.map(metrics, &String.to_atom/1)}
@@ -196,11 +196,11 @@ defmodule PlausibleWeb.Api.ExternalStatsController do
     else
       :error ->
         {:error,
-         "The `date` parameter is required when using a custom period. See https://analytics.rakun.ie/docs/stats-api#time-periods"}
+         "The `date` parameter is required when using a custom period. See https://plausible.io/docs/stats-api#time-periods"}
 
       _ ->
         {:error,
-         "Invalid format for `date` parameter. When using a custom period, please include two ISO-8601 formatted dates joined by a comma. See https://analytics.rakun.ie/docs/stats-api#time-periods"}
+         "Invalid format for `date` parameter. When using a custom period, please include two ISO-8601 formatted dates joined by a comma. See https://plausible.io/docs/stats-api#time-periods"}
     end
   end
 
@@ -222,7 +222,7 @@ defmodule PlausibleWeb.Api.ExternalStatsController do
       :ok
     else
       {:error,
-       "Error parsing `period` parameter: invalid period `#{period}`. Please find accepted values in our docs: https://analytics.rakun.ie/docs/stats-api#time-periods"}
+       "Error parsing `period` parameter: invalid period `#{period}`. Please find accepted values in our docs: https://plausible.io/docs/stats-api#time-periods"}
     end
   end
 
