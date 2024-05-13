@@ -117,7 +117,7 @@ export default function SourceList(props) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Menu.Items className="text-left origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+            <Menu.Items className="text-left origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-black bg-opacity-90  ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
               <div className="py-1">
                 {dropdownOptions.map((option) => {
                   return (
@@ -126,7 +126,7 @@ export default function SourceList(props) {
                         <span
                           onClick={setTab(option)}
                           className={classNames(
-                            active ? 'bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 cursor-pointer' : 'text-gray-700 dark:text-gray-200',
+                            active ? 'bg-gray-100 bg-gray-900 text-gray-900 dark:text-gray-200 cursor-pointer' : 'text-gray-700 dark:text-gray-200',
                             'block px-4 py-2 text-sm',
                             currentTab === option ? 'font-bold' : ''
                           )}

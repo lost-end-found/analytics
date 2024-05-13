@@ -317,7 +317,7 @@ function DatePicker({ query, site, history }) {
           className="absolute w-full left-0 right-0 md:w-56 md:absolute md:top-auto md:left-auto md:right-0 mt-2 origin-top-right z-10"
         >
           <div
-            className="rounded-md shadow-lg  bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5
+            className="rounded-md shadow-lg  bg-black bg-opacity-90  ring-1 ring-black ring-opacity-5
             font-medium text-gray-800 dark:text-gray-200 date-options"
           >
             <div className="py-1 border-b border-gray-200 dark:border-gray-500 date-option-group">

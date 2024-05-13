@@ -1,4 +1,4 @@
-<div class="shadow bg-white dark:bg-gray-800 sm:rounded-md py-6 px-4 sm:p-6">
+<div class="shadow bg-black bg-opacity-90  sm:rounded-md py-6 px-4 sm:p-6">
   <header class="relative">
     <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">People</h2>
     <p class="mt-1 text-sm leading-5 text-gray-500 dark:text-gray-200">
@@ -173,7 +173,7 @@
           <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 dark:border-gray-500 sm:rounded-lg">
               <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-400">
-                <thead class="bg-gray-50 dark:bg-gray-900">
+                <thead class="bg-gray-50 bg-gray-900">
                   <tr>
                     <th
                       scope="col"
@@ -194,7 +194,7 @@
                 </thead>
                 <tbody>
                   <%= for invitation <- @site.invitations do %>
-                    <tr class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-850 dark:even:bg-gray-825">
+                    <tr class="odd:even:bg-gray-50 dark:odd:bg-gray-850 dark:even:bg-gray-825">
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
                         <%= invitation.email %>
                       </td>

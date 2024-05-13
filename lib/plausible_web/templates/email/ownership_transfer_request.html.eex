@@ -4,5 +4,5 @@
 <% else %>
   <%= link("Click here", to: Routes.auth_url(PlausibleWeb.Endpoint, :register_form), invitation: @invitation.invitation_id) %> to create your account.
   <br /><br />
-  Plausible is a lightweight and open-source website analytics tool. We hope you like our simple and ethical approach to tracking website visitors.
+  Rakun Analyticsis a lightweight and open-source website analytics tool. We hope you like our simple and ethical approach to tracking website visitors.
 <% end %>

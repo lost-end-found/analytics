@@ -24,7 +24,8 @@ module.exports = {
         gray: colors.slate,
         'gray-950': 'rgb(13, 18, 30)',
         'gray-850': 'rgb(26, 32, 44)',
-        'gray-825': 'rgb(37, 47, 63)'
+        'gray-825': 'rgb(37, 47, 63)',
+        'rakun': '#6545e6',
       },
       spacing: {
         '44': '11rem'

@@ -1,0 +1,14 @@
+<div class="mt-24 bg-black bg-opacity-80">
+  <div class="container px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="my-8 xl:my-0">
+        <h4 class="font-semibold tracking-wider text-gray-300 leading-5">
+          <img src="/images/icon/plausible_logo_sm.png" class="inline-block w-6 mr-1" />
+          Rakun Analytics
+        </h4>
+        <p class="mt-4 text-base text-gray-400 leading-6">
+          Made and hosted in the EU <span class="text-lg">🇪🇺</span><br />
+      </div>
+    </div>
+  </div>
+</div>
