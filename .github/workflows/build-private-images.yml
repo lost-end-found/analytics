@@ -1,11 +1,7 @@
 name: Build Private Images
 
 on:
-  push:
-    branches: [master, stable]
-    tags: ['r*']
-  pull_request:
-    types: [synchronize, labeled]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
